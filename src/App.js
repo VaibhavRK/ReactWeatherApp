@@ -32,13 +32,13 @@ function App() {
 
   return (
     <div className="card" >
+      <h1 style={{marginTop:8,marginBottom:10}} >{cityName}</h1>
       <div className="searchPart">
         <input type="text" placeholder="Enter City" className="searching" value={search} onChange={(e) => {setSearch(e.target.value) }} />
         <FcSearch size='50' style={{ cursor: 'pointer' }} className='searchIcon' onClick={()=>{setChnage(change+1); setCityName(search);}}  />
       </div>
 
 
-      <h1 style={{marginTop:15}} >{cityName}</h1>
       {
         !city ? (
           <div className='errorData'>
