@@ -42,7 +42,8 @@ function App() {
       {
         !city ? (
           <div className='errorData'>
-             <p>Enter Correct City Name</p>
+             <p>City Not Found </p>
+             <p>Enter another City 🙄</p>
              <BiError size={50} className='weatherImg' />
           </div>
           ) :
