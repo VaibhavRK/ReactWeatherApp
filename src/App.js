@@ -5,6 +5,7 @@ import { BsThermometerHalf } from "react-icons/bs";
 import { IoIosWater } from "react-icons/io";
 import { FcSearch } from "react-icons/fc";
 import { useState, useEffect } from 'react';
+import ForcastCard from './ForcastCard';
 
 function App() {
 
@@ -12,11 +13,17 @@ function App() {
   let [search, setSearch] = useState("Ghaziabad");
   let [change,setChnage] = useState(0);
   let [cityName,setCityName] = useState("Ghaziabad");
-  let [icon,setIcon] = useState(117);
+  let [forcast,setForcast] = useState([]);
+
+  // useEffect(()=>{
+  //   navigator.geolocation.getCurrentPosition((pos)=>{
+  //     console.log(pos);
+  //   })
+  // },[]);
 
   
   useEffect(()=>{
-    const fetchApi = async () =>{
+    const fetchApi1 = async () =>{
       let api = `https://api.weatherapi.com/v1/current.json?key=acc18d5b59ea4ae890e100957220901&q=${search}`;
 
       const response = await fetch(api);
@@ -25,12 +32,25 @@ function App() {
       setCity(data.current);
     };
 
-    fetchApi();
+    fetchApi1();
+
+    const fetchApi2 = async () =>{
+      let api2 = `http://api.weatherapi.com/v1/forecast.json?key=acc18d5b59ea4ae890e100957220901&q=${search}&days=7`;
+
+      const response2 = await fetch(api2);
+      const data2 = await response2.json();
+      console.log(data2.forecast.forecastday);
+
+      setForcast(data2.forecast.forecastday);
+    }
+
+    fetchApi2();
   },[change]);
   
 
 
   return (
+    <div className='wholePart'>
     <div className="card" >
       <h1 style={{marginTop:8,marginBottom:10}} >{cityName}</h1>
       <div className="searchPart">
@@ -95,6 +115,26 @@ function App() {
           </>
         )
       }
+    </div>
+
+    <div className="forecastCard">
+    <h1>Forcasting</h1>
+        {
+          !city ? (
+             <div style={{display:'flex',flexDirection:'column',width:250,justifyContent:'center',alignItems:'center',marginTop:'1rem'}}>
+             <p>Enter another City 🙄</p>
+             <BiError size={50} className='weatherImg' />
+             </div>
+          ) :
+          (
+           forcast.map((ele)=>{
+             return (
+               <ForcastCard ele={ele} />
+             )
+           })
+          )
+        }   
+    </div>
     </div>
   );
 }
