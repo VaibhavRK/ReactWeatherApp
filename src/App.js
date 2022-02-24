@@ -35,7 +35,7 @@ function App() {
     fetchApi1();
 
     const fetchApi2 = async () =>{
-      let api2 = `http://api.weatherapi.com/v1/forecast.json?key=acc18d5b59ea4ae890e100957220901&q=${search}&days=7`;
+      let api2 = `https://api.weatherapi.com/v1/forecast.json?key=acc18d5b59ea4ae890e100957220901&q=${search}&days=7`;
 
       const response2 = await fetch(api2);
       const data2 = await response2.json();
